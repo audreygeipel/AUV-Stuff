@@ -1,0 +1,33 @@
+
+import sys, getopt
+
+def main(argv):
+
+#picturetime = open("TestCam1.JPG", "r+")
+#print (picturetime);
+
+
+	from PIL import Image
+
+
+#get the size of the inputfile
+	inputfile = Image.open('TestCam1.JPG')
+	width, height = inputfile.size
+
+
+#create the outputfile as all white, in the right size
+	outputfile = Image.new( 'RGB', (width,height), "white")
+
+	for x in range(width):
+		for y in range(height):
+			r,g,b = inputfile.getpixel((x,y))
+			if b <= 130:
+				outputfile.putpixel((x,y), 0)
+
+
+	outputfile.show()
+
+	outputfile.save('blobDETECTED.JPG')
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
